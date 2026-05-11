@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import cookie from '@fastify/cookie'
 import dotenv from 'dotenv'
+import redisPlugin from './plugins/redis'
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.register(cors, {
 })
 
 app.register(cookie)
+app.register(redisPlugin)
 
 // ── Health check ─────────────────────────────────────────────────────
 app.get('/health', async () => {
