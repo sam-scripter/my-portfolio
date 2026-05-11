@@ -14,7 +14,7 @@ const app = Fastify({
 // ── Plugins ──────────────────────────────────────────────────────────
 app.register(cors, {
   origin: process.env.NODE_ENV === 'production'
-    ? ['https://yourdomain.com']
+    ? ['https://shadivahlabs.com']
     : ['http://localhost:3000'],
   credentials: true,
 })
