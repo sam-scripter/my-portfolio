@@ -30,6 +30,7 @@ class ChatRequest(BaseModel):
 
     # Only present in recruiter mode — the pasted job description
     job_description: Optional[str] = None
+    session_id: str = "anonymous"
 
 # What we return from POST /chat/analyze-fit
 # This is the structured fit report shown in recruiter mode
