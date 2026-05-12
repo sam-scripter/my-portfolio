@@ -44,8 +44,32 @@ app.include_router(ingest.router)
 # - The GitHub Actions deploy workflow to confirm successful deploy
 @app.get("/health")
 async def health():
+    """
+    Health check endpoint.
+    Verifies database connectivity and reports knowledge base status.
+    Used by Docker, Fastify, and the GitHub Actions deploy workflow.
+    """
+    try:
+        import psycopg2
+        from app.config import settings
+        conn = psycopg2.connect(settings.database_url)
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM knowledge_chunks")
+        chunk_count = cur.fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM projects")
+        project_count = cur.fetchone()[0]
+        cur.close()
+        conn.close()
+        db_status = "ok"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+        chunk_count = 0
+        project_count = 0
+
     return {
         "status": "ok",
         "service": "backend-python",
-        # Phase 3 will add: "database": "ok/error" and "chunks_loaded": N
+        "database": db_status,
+        "knowledge_chunks": chunk_count,
+        "projects": project_count,
     }
