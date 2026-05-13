@@ -10,9 +10,6 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
@@ -22,19 +19,15 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            ubuntu@92.4.129.50 \
+          ssh -i ~/.ssh/deploy_key ubuntu@92.4.129.50 \
             "cd ~/my-portfolio && \
              git pull origin main && \
-             docker compose up -d --build && \
-             docker system prune -f"
+             sudo docker compose -f docker-compose.portfolio.yml --env-file .env up -d --build && \
+             sudo docker exec ksg_nginx nginx -s reload && \
+             echo 'Deploy complete'"
 
       - name: Health check
         run: |
           sleep 30
-          curl -f https://shadivahlabs.com/api/health || exit 1
-          echo "Deployment successful"
-
-      - name: Notify on failure
-        if: failure()
-        run: echo "Deployment failed — check GitHub Actions logs"
+          curl -f https://shadivahlabs.com || exit 1
+          echo "Site is live"
