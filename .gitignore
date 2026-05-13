@@ -9,3 +9,5 @@ dist/
 *.pyc
 venv/
 .DS_Store
+backend-node/.env.production
+backend-python/.env.production
