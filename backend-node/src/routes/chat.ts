@@ -36,12 +36,16 @@ export async function chatRoutes(fastify: FastifyInstance) {
         }
       )
 
-      // Step 4: Set SSE headers on the response to the browser
+      // Step 4: Set SSE headers on the response to the browser.
+      // CORS headers must be forwarded explicitly because reply.raw.writeHead()
+      // bypasses Fastify's abstraction layer where @fastify/cors set them.
       reply.raw.writeHead(200, {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'X-Accel-Buffering': 'no',   // disables Nginx buffering for SSE
         'Connection': 'keep-alive',
+        'Access-Control-Allow-Origin': (reply.getHeader('access-control-allow-origin') as string) || '',
+        'Access-Control-Allow-Credentials': 'true',
         'X-RateLimit-Remaining': reply.getHeader('X-RateLimit-Remaining') || '0',
         'X-RateLimit-Limit': reply.getHeader('X-RateLimit-Limit') || '20',
       })

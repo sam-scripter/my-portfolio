@@ -186,6 +186,18 @@ export async function adminRoutes(fastify: FastifyInstance) {
     }
   })
 
+  // ── GET /api/admin/settings — all settings ────────────────────────────
+  fastify.get('/api/admin/settings', async (request, reply) => {
+    const result = await fastify.db.query(
+      'SELECT key, value FROM site_settings ORDER BY key'
+    )
+    const data: Record<string, string> = {}
+    for (const row of result.rows) {
+      data[row.key] = row.value
+    }
+    return reply.send({ success: true, data })
+  })
+
   // ── POST /api/admin/ingest — trigger full knowledge base re-ingest ─
   fastify.post('/api/admin/ingest', async (request, reply) => {
     try {

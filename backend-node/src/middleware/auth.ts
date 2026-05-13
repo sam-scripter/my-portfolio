@@ -4,6 +4,9 @@ export async function requireAdmin(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
+  // Allow routes that opt out (e.g. the login route itself)
+  if ((request.routeOptions?.config as any)?.skipAdminAuth) return
+
   // Expect: Authorization: Bearer <ADMIN_SECRET>
   const authHeader = request.headers.authorization
 
