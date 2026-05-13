@@ -1,47 +1,65 @@
 @import "tailwindcss";
 
-:root {
-  --primary-50: #eff6ff;
-  --primary-100: #dbeafe;
-  --primary-200: #bfdbfe;
-  --primary-400: #60a5fa;
-  --primary-500: #3b82f6;
-  --primary-600: #2563eb;
-  --primary-700: #1d4ed8;
-  --primary-900: #1e3a8a;
+/* ── Tailwind v4 theme definition ─────────────────────────────────────
+   In v4, colors are defined here in CSS, not in tailwind.config.ts.
+   The @theme directive makes these available as Tailwind utility classes.
+   e.g. --color-surface-2 becomes bg-surface-2, text-surface-2, etc.
+   ──────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Primary blue scale */
+  --color-primary-50:  #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-900: #1e3a8a;
 
-  --accent-400: #34d399;
-  --accent-500: #10b981;
-  --accent-600: #059669;
+  /* Accent green */
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
 
-  --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --surface-3: #f1f5f9;
-  --border: #e2e8f0;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  /* Surface colors — light mode defaults */
+  --color-surface:   #ffffff;
+  --color-surface-2: #f8fafc;
+  --color-surface-3: #f1f5f9;
+
+  /* Border */
+  --color-border: #e2e8f0;
+
+  /* Text colors */
+  --color-text-primary:   #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted:     #94a3b8;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
+/* ── Dark mode overrides ──────────────────────────────────────────────
+   When the 'dark' class is on <html>, these values replace the defaults.
+   ──────────────────────────────────────────────────────────────────── */
 .dark {
-  --surface: #0f172a;
-  --surface-2: #1e293b;
-  --surface-3: #334155;
-  --border: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #64748b;
+  --color-surface:   #0f172a;
+  --color-surface-2: #1e293b;
+  --color-surface-3: #334155;
+  --color-border:    #334155;
+  --color-text-primary:   #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted:     #64748b;
 }
 
+/* ── Base styles ─────────────────────────────────────────────────────── */
 body {
-  background-color: var(--surface);
-  color: var(--text-primary);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
