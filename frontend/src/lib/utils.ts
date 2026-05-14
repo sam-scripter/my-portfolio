@@ -23,14 +23,14 @@ export function formatDate(dateStr: string): string {
 }
 
 // Status label and color for project badges
-export function getStatusConfig(status: string) {
+export function getStatusConfig(status: string): {
+  label: string
+  variant: 'live' | 'progress' | 'archived'
+} {
   switch (status) {
-    case 'live':
-      return { label: 'Live', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' }
-    case 'in_progress':
-      return { label: 'In Progress', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' }
-    default:
-      return { label: 'Archived', color: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400' }
+    case 'live':        return { label: 'Live',        variant: 'live' }
+    case 'in_progress': return { label: 'In Progress', variant: 'progress' }
+    default:            return { label: 'Archived',    variant: 'archived' }
   }
 }
 
@@ -43,5 +43,5 @@ export function getLanguageColor(language: string | null): string {
     'JavaScript': '#f1e05a',
     'Kotlin': '#A97BFF',
   }
-  return colors[language || ''] || '#6e7681'
+  return colors[language || ''] || '#4a5568'
 }

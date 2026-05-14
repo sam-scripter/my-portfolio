@@ -4,13 +4,16 @@ interface CardProps {
   children: React.ReactNode
   className?: string
   hover?: boolean
+  accent?: boolean
 }
 
-export function Card({ children, className, hover = false }: CardProps) {
+export function Card({ children, className, hover = false, accent = false }: CardProps) {
   return (
     <div className={cn(
-      'bg-surface-2 border border-border rounded-xl p-6',
-      hover && 'transition-all duration-200 hover:border-primary-300 hover:shadow-sm dark:hover:border-primary-700',
+      'rounded-xl transition-all duration-200',
+      'bg-[#0a192f] border border-[rgba(255,255,255,0.08)]',
+      hover && 'hover:border-[rgba(100,255,218,0.25)] hover:bg-[#112240] cursor-pointer',
+      accent && 'border-[rgba(100,255,218,0.25)]',
       className
     )}>
       {children}
