@@ -1,145 +1,185 @@
-import { SectionHeader } from '../ui/SectionHeader'
+'use client'
 
-interface TimelineEntry {
-  date: string
-  title: string
-  org: string
-  type: 'work' | 'education'
-  description: string[]
-  current?: boolean
-}
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
 
-const TIMELINE: TimelineEntry[] = [
+const ROLES = [
   {
-    date: 'Current',
-    title: 'ICT Platform Developer',
+    role: 'ICT Platform Developer',
     org: 'Kenya School of Government',
-    type: 'work',
+    period: 'Current',
     current: true,
-    description: [
-      'Building a full ICT asset management and service desk platform',
-      'Docker deployment on Oracle Cloud VPS with Nginx and SSL',
-      'Real-time WebSocket notifications with Socket.io',
+    bullets: [
+      'Full ICT asset management and service desk platform built with Node.js/Express.',
+      'Docker deployment on Oracle Cloud VPS with Nginx and SSL.',
+      'Real-time WebSocket notifications with Socket.io.',
     ],
   },
   {
-    date: 'May 2025 – Present',
-    title: 'MSc Information Technology',
-    org: 'Strathmore University',
-    type: 'education',
-    current: true,
-    description: [
-      'Focus: Business Intelligence & Data Analytics',
-      'Part-time evening programme — expected June 2027',
-    ],
-  },
-  {
-    date: 'Sep 2025, Feb 2026',
-    title: 'Lead Technical Instructor',
+    role: 'Lead Technical Instructor',
     org: 'Sabatia Vocational College',
-    type: 'work',
-    description: [
-      'Led mobile development workshops teaching Flutter and Kotlin',
-      'Designed and delivered full curriculum from setup to deployment',
+    period: 'Sep 2025 · Feb 2026',
+    current: false,
+    bullets: [
+      'Designed and delivered intensive training in Mobile Development (Kotlin) and Applied AI.',
+      'Mentored developers through hands-on workshops on integrating LLM endpoints into mobile applications.',
+      'Strong technical communication: breaking complex ML concepts into actionable lessons.',
     ],
   },
   {
-    date: 'Jan 2025 – Nov 2025',
-    title: 'Mobile & Backend Developer',
+    role: 'Mobile & Backend Developer',
     org: 'IVY Community',
-    type: 'work',
-    description: [
-      'Built vendor management system with Flutter and Django',
-      'Developed Measurement API using OpenPose computer vision',
-      'Led R&D on SMPLX 3D body mesh generation',
+    period: 'Jan 2025 – Nov 2025',
+    current: false,
+    bullets: [
+      'Architected a comprehensive cross-platform vendor management system using Flutter and Django with real-time inventory tracking.',
+      'Developed a custom Computer Vision Measurement API to extract body metrics from 2D photos for a virtual fashion system.',
+      'Led R&D on 3D body modeling, prototyping SMPLX integration to create rotatable 3D avatars for virtual outfit fitting.',
     ],
   },
   {
-    date: 'May 2023 – Aug 2023',
-    title: 'Backend Developer',
+    role: 'Backend Developer',
     org: 'Uasin Gishu County Government',
-    type: 'work',
-    description: [
-      'Built fuel and repair requisition system replacing paper process',
-      'Google Maps API integration for automated fuel quota calculation',
-    ],
-  },
-  {
-    date: 'Sep 2020 – Oct 2024',
-    title: 'BSc Computer Science',
-    org: 'Catholic University of Eastern Africa',
-    type: 'education',
-    description: [
-      'Second Class Upper Division',
-      'Final project: Integrated Vehicle Management System (IVMS)',
+    period: 'May 2023 – Aug 2023',
+    current: false,
+    bullets: [
+      'Spearheaded the Fuel and Repair Order Management System, replacing a manual paper requisition process.',
+      'Implemented Google Maps API to calculate precise distances for fuel quotas, directly mitigating fuel theft.',
+      'Managed the PostgreSQL schema handling complex departmental relations.',
     ],
   },
 ]
 
+const EDUCATION = [
+  {
+    title: 'M.Sc. Information Technology',
+    org: 'Strathmore University',
+    period: 'May 2025 – Jun 2027 (expected)',
+    note: 'Focus: Business Intelligence & Data Analytics · Part-time evenings',
+  },
+  {
+    title: 'B.Sc. Computer Science',
+    org: 'The Catholic University of Eastern Africa',
+    period: 'Sep 2020 – Oct 2024',
+    note: 'Second Class Upper Division · Final project: IVMS',
+  },
+]
+
+const SKILLS: Record<string, string[]> = {
+  'Mobile': ['Flutter', 'Dart', 'Kotlin', 'Android SDK', 'Firebase', 'Provider/Bloc/MVVM'],
+  'AI & Automation': ['Autonomous Agents', 'LLM Integration', 'Prompt Engineering', 'Token Optimization', 'Serper.dev', 'TheirStack'],
+  'Backend & DB': ['Python', 'Django', 'DRF', 'PostgreSQL', 'Node.js', 'Express', 'SQLite/Drift', 'Hive'],
+  'Tools': ['REST APIs', 'Git', 'Docker', 'Google Maps API', 'Computer Vision API', 'CI/CD'],
+}
+
 export function Timeline() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const active = ROLES[activeIdx]
+
   return (
-    <section id="experience" className="py-24 bg-surface-2">
-      <div className="max-w-6xl mx-auto px-6">
-        <SectionHeader
-          title="Experience & Education"
-          subtitle="Where I've worked and studied."
-        />
+    <section id="experience" className="py-24">
+      <div className="max-w-5xl mx-auto px-6">
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-[7px] md:left-1/2 top-0 bottom-0 w-px bg-border" />
+        {/* Header */}
+        <div className="mb-12">
+          <p className="font-mono text-sm text-[#64ffda] mb-3">03. Experience</p>
+          <h2 className="font-display text-3xl font-bold text-[#ccd6f6] mb-4">
+            <span className="text-[#64ffda]">Experience</span>
+          </h2>
+          <div className="w-16 h-px bg-[rgba(100,255,218,0.3)]" />
+        </div>
 
-          <div className="space-y-10">
-            {TIMELINE.map((entry, i) => (
-              <div key={i} className={`relative flex gap-6 md:gap-0 ${
-                i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}>
-                {/* Content */}
-                <div className={`flex-1 md:w-[calc(50%-2rem)] ml-8 md:ml-0 ${
-                  i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
-                }`}>
-                  <div className="bg-surface border border-border rounded-xl p-5">
-                    {/* Date */}
-                    <span className="text-xs font-medium text-primary-500 mb-1 block">
-                      {entry.date}
-                    </span>
+        {/* Tabbed work history */}
+        <div className="flex flex-col sm:flex-row gap-0">
 
-                    {/* Title and org */}
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-base font-semibold text-text-primary">
-                        {entry.title}
-                      </h3>
-                      {entry.current && (
-                        <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full flex-shrink-0">
-                          Current
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-primary-600 dark:text-primary-400 font-medium mb-3">
-                      {entry.org}
-                    </p>
+          {/* Tab list */}
+          <div className="flex sm:flex-col overflow-x-auto sm:overflow-visible border-b sm:border-b-0 sm:border-l border-[rgba(255,255,255,0.08)] shrink-0">
+            {ROLES.map((r, i) => (
+              <button
+                key={r.org}
+                onClick={() => setActiveIdx(i)}
+                className={cn(
+                  "px-5 py-3 text-sm text-left whitespace-nowrap transition-all duration-150",
+                  "border-b-2 sm:border-b-0 sm:border-l-2 -mb-px sm:mb-0 sm:-ml-px",
+                  i === activeIdx
+                    ? "border-[#64ffda] text-[#64ffda] bg-[rgba(100,255,218,0.05)] font-medium"
+                    : "border-transparent text-[#8892b0] hover:text-[#ccd6f6] hover:bg-[rgba(100,255,218,0.03)]"
+                )}
+              >
+                <span className="block font-mono text-xs text-[#4a5568] mb-0.5">{r.period}</span>
+                {r.org}
+                {r.current && (
+                  <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-[rgba(100,255,218,0.1)] border border-[rgba(100,255,218,0.2)] text-[#64ffda]">
+                    now
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
 
-                    {/* Details */}
-                    <ul className="space-y-1">
-                      {entry.description.map((point, j) => (
-                        <li key={j} className="text-xs text-text-secondary flex gap-2">
-                          <span className="text-primary-400 mt-0.5 flex-shrink-0">·</span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          {/* Tab panel */}
+          <div className="sm:pl-10 pt-6 sm:pt-0 min-h-[14rem]">
+            <h3 className="font-display text-xl font-semibold text-[#ccd6f6]">
+              {active.role}{' '}
+              <span className="text-[#64ffda]">@ {active.org}</span>
+            </h3>
+            <p className="mt-1 font-mono text-xs text-[#8892b0]">{active.period}</p>
+            <ul className="mt-5 space-y-3">
+              {active.bullets.map((b, i) => (
+                <li key={i} className="flex gap-3 text-[#8892b0] text-sm">
+                  <span className="text-[#64ffda] mt-0.5 shrink-0">▹</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Education */}
+        <div className="mt-20">
+          <h3 className="font-mono text-xs text-[#64ffda] uppercase tracking-widest mb-6">Education</h3>
+          <div className="space-y-3">
+            {EDUCATION.map(e => (
+              <div
+                key={e.title}
+                className="rounded-xl px-5 py-4 bg-[#0a192f] border border-[rgba(255,255,255,0.08)] hover:border-[rgba(100,255,218,0.2)] transition-colors flex flex-wrap items-start justify-between gap-3"
+              >
+                <div>
+                  <div className="font-medium text-[#ccd6f6]">{e.title}</div>
+                  <div className="text-sm text-[#64ffda] mt-0.5">{e.org}</div>
+                  <div className="text-xs text-[#4a5568] mt-1">{e.note}</div>
                 </div>
-
-                {/* Dot on the line */}
-                <div className="absolute left-0 md:left-1/2 top-6 w-3.5 h-3.5 rounded-full border-2 border-primary-500 bg-surface -translate-x-[3px] md:-translate-x-1/2 flex-shrink-0" />
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block flex-1" />
+                <div className="font-mono text-xs text-[#8892b0] shrink-0">{e.period}</div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Skills */}
+        <div className="mt-16">
+          <h3 className="font-mono text-xs text-[#64ffda] uppercase tracking-widest mb-6">Technical Skills</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {Object.entries(SKILLS).map(([cat, items]) => (
+              <div
+                key={cat}
+                className="rounded-xl p-5 bg-[#0a192f] border border-[rgba(255,255,255,0.08)] hover:border-[rgba(100,255,218,0.2)] transition-colors"
+              >
+                <div className="text-sm font-medium text-[#ccd6f6] mb-3">{cat}</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {items.map(s => (
+                    <span
+                      key={s}
+                      className="text-xs px-2 py-1 rounded-md bg-[rgba(100,255,218,0.07)] text-[#64ffda] border border-[rgba(100,255,218,0.15)]"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )

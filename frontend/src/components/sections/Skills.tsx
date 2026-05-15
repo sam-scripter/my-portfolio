@@ -1,81 +1,85 @@
 import { SkillsByCategory } from '@/types'
-import { SectionHeader } from '../ui/SectionHeader'
 
 interface SkillsProps {
   skills: SkillsByCategory
 }
 
-// Category display order
-const CATEGORY_ORDER = ['Mobile', 'AI & Automation', 'Backend', 'Frontend', 'Tools & DevOps']
+const CATEGORY_ORDER = [
+  'Mobile',
+  'AI & Automation',
+  'Backend',
+  'Frontend',
+  'Tools & DevOps',
+]
+
+const PROFICIENCY_LABEL: Record<number, string> = {
+  5: 'Expert',
+  4: 'Proficient',
+  3: 'Working knowledge',
+  2: 'Foundational',
+  1: 'Exploring',
+}
 
 export function Skills({ skills }: SkillsProps) {
-  const orderedCategories = CATEGORY_ORDER.filter(c => skills[c])
+  const ordered = CATEGORY_ORDER.filter(c => skills[c])
 
   return (
-    <section id="skills" className="py-24 bg-surface-2">
-      <div className="max-w-6xl mx-auto px-6">
-        <SectionHeader
-          title="Technical Skills"
-          subtitle="Tools and technologies I work with regularly — proficiency shown honestly."
-        />
+    <section id="skills" className="py-24 px-6 lg:px-24 bg-[#0a192f]">
+      <div className="max-w-5xl mx-auto">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {orderedCategories.map(category => (
+        {/* Section header */}
+        <div className="mb-12">
+          <p className="font-mono text-sm text-[#64ffda] mb-3">02. Skills</p>
+          <h2 className="text-3xl font-bold text-[#ccd6f6] mb-4">
+            Technical Toolkit
+          </h2>
+          <div className="w-16 h-px bg-[rgba(100,255,218,0.3)]" />
+        </div>
+
+        <div className="space-y-12">
+          {ordered.map(category => (
             <div key={category}>
-              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-4">
+              {/* Category label */}
+              <p className="font-mono text-xs text-[#64ffda] uppercase tracking-widest mb-5">
                 {category}
-              </h3>
-              <div className="flex flex-col gap-3">
+              </p>
+
+              {/* Skills grid */}
+              <div className="grid md:grid-cols-2 gap-x-16 gap-y-4">
                 {skills[category].map(skill => (
-                  <SkillRow key={skill.name} skill={skill} />
+                  <div key={skill.name}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-sm text-[#ccd6f6]">{skill.name}</span>
+                      <span className="font-mono text-xs text-[#4a5568]">
+                        {PROFICIENCY_LABEL[skill.proficiency] || ''}
+                      </span>
+                    </div>
+                    {/* Progress bar */}
+                    <div className="h-px bg-[rgba(255,255,255,0.06)] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[rgba(100,255,218,0.5)] rounded-full transition-all duration-700"
+                        style={{ width: `${(skill.proficiency / 5) * 100}%` }}
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Proficiency legend */}
-        <div className="mt-12 pt-8 border-t border-border flex flex-wrap gap-6 text-xs text-text-muted">
-          <span className="font-medium text-text-secondary">Proficiency:</span>
-          {[
-            { dots: 5, label: 'Expert' },
-            { dots: 4, label: 'Proficient' },
-            { dots: 3, label: 'Working knowledge' },
-            { dots: 2, label: 'Foundational' },
-          ].map(({ dots, label }) => (
-            <span key={label} className="flex items-center gap-2">
-              <Dots filled={dots} total={5} />
-              {label}
-            </span>
+        {/* Legend */}
+        <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.06)] flex flex-wrap gap-6">
+          {[5, 4, 3, 2].map(level => (
+            <div key={level} className="flex items-center gap-2">
+              <div className="w-8 h-px bg-[rgba(100,255,218,0.5)]" style={{ opacity: level / 5 }} />
+              <span className="font-mono text-xs text-[#4a5568]">
+                {PROFICIENCY_LABEL[level]}
+              </span>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-function SkillRow({ skill }: { skill: { name: string; proficiency: number } }) {
-  return (
-    <div className="flex items-center justify-between">
-      <span className="text-sm text-text-primary">{skill.name}</span>
-      <Dots filled={skill.proficiency} total={5} />
-    </div>
-  )
-}
-
-function Dots({ filled, total }: { filled: number; total: number }) {
-  return (
-    <div className="flex gap-1">
-      {Array.from({ length: total }).map((_, i) => (
-        <span
-          key={i}
-          className={`w-2 h-2 rounded-full transition-colors ${
-            i < filled
-              ? 'bg-primary-500'
-              : 'bg-surface-3 dark:bg-gray-700'
-          }`}
-        />
-      ))}
-    </div>
   )
 }

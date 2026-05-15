@@ -183,7 +183,7 @@ async def chat(request: ChatRequest, http_request: Request):
                 model=settings.openai_chat_model,
                 messages=messages,
                 stream=True,
-                max_tokens=1000,
+                max_tokens=2000,
                 temperature=0.7,  # slight creativity while staying grounded
             )
 

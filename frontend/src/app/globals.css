@@ -34,7 +34,8 @@
   --color-archived: #4a5568;
 
   /* ── Font ────────────────────────────────────────────────── */
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Courier New", monospace;
 }
 

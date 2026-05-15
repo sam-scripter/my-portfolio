@@ -18,7 +18,7 @@ export function useChat() {
   const [mode, setMode] = useState<ChatMode>('visitor')
   const [isStreaming, setIsStreaming] = useState(false)
   const [remainingMessages, setRemainingMessages] = useState<number | null>(null)
-  const [rateLimitHit, setRateLimitHit] = useState(false)
+  const [rateLimitCode, setRateLimitCode] = useState<string | null>(null)
   const [fitReport, setFitReport] = useState<FitReport | null>(null)
   const [analyzingFit, setAnalyzingFit] = useState(false)
 
@@ -27,7 +27,7 @@ export function useChat() {
   const streamingIdRef = useRef<string | null>(null)
 
   const sendMessage = useCallback(async (content: string, jobDescription?: string) => {
-    if (isStreaming || rateLimitHit) return
+    if (isStreaming || rateLimitCode !== null) return
     if (!content.trim()) return
 
     // Add the user message immediately (optimistic UI)
@@ -82,9 +82,9 @@ export function useChat() {
 
       // Handle rate limit response
       if (response.status === 429) {
-        setRateLimitHit(true)
+        const body = await response.json().catch(() => ({}))
+        setRateLimitCode(body.code || 'DAILY_LIMIT')
         setIsStreaming(false)
-        // Remove the empty AI message
         setMessages(prev => prev.filter(m => m.id !== aiMessageId))
         return
       }
@@ -168,7 +168,7 @@ export function useChat() {
       setIsStreaming(false)
       streamingIdRef.current = null
     }
-  }, [isStreaming, rateLimitHit, messages, mode])
+  }, [isStreaming, rateLimitCode, messages, mode])
 
   const runFitAnalysis = useCallback(async (jobDescription: string) => {
     setAnalyzingFit(true)
@@ -193,7 +193,7 @@ export function useChat() {
   const clearMessages = useCallback(() => {
     setMessages([])
     setFitReport(null)
-    setRateLimitHit(false)
+    setRateLimitCode(null)
   }, [])
 
   const switchMode = useCallback((newMode: ChatMode) => {
@@ -207,7 +207,8 @@ export function useChat() {
     mode,
     isStreaming,
     remainingMessages,
-    rateLimitHit,
+    rateLimitHit: rateLimitCode !== null,
+    rateLimitCode,
     fitReport,
     analyzingFit,
     sendMessage,

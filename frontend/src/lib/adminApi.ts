@@ -102,5 +102,5 @@ export async function adminGetAnalytics() {
 
 // ── Knowledge base ────────────────────────────────────────────────────
 export async function adminTriggerIngest() {
-  return adminFetch('/api/admin/ingest', { method: 'POST' })
+  return adminFetch('/api/admin/ingest', { method: 'POST', body: JSON.stringify({}) })
 }
