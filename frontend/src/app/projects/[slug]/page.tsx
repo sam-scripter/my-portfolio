@@ -44,8 +44,12 @@ export default async function ProjectPage({
             <h1 className="text-4xl font-bold text-text-primary">{project.title}</h1>
             <span
               className={[
-                'text-xs font-medium px-3 py-1 rounded-full flex-shrink-0',
-                status.color,
+                'text-xs font-mono px-3 py-1 rounded-full flex-shrink-0',
+                status.variant === 'live'
+                  ? 'bg-[rgba(100,255,218,0.08)] text-[#64ffda] border border-[rgba(100,255,218,0.2)]'
+                  : status.variant === 'progress'
+                  ? 'bg-[rgba(239,159,39,0.08)] text-[#EF9F27] border border-[rgba(239,159,39,0.2)]'
+                  : 'bg-[rgba(255,255,255,0.04)] text-[#4a5568] border border-[rgba(255,255,255,0.08)]',
               ].join(' ')}
             >
               {status.label}
