@@ -40,7 +40,7 @@ export function GitHubActivity() {
 
   return (
     <section className="py-24 max-w-6xl mx-auto px-6">
-      <SectionHeader title="Currently Building" subtitle="Live GitHub activity — updated hourly." />
+      <SectionHeader label="04. Activity" title="Currently Building" subtitle="Live GitHub activity — updated hourly." />
 
       {loading && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
