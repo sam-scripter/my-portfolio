@@ -1,8 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, X, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+const LOGO_TEXT = 'shadivah'
+
+function LogoType() {
+  const [displayed, setDisplayed] = useState('')
+  const [done, setDone] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      let i = 0
+      const interval = setInterval(() => {
+        i++
+        setDisplayed(LOGO_TEXT.slice(0, i))
+        if (i === LOGO_TEXT.length) {
+          clearInterval(interval)
+          setDone(true)
+        }
+      }, 90)
+    }, 800)
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
+  return (
+    <span className="font-mono text-[#64ffda] text-sm font-medium tracking-tight">
+      {displayed}
+      {!done && (
+        <span className="inline-block w-[0.55ch] h-[1em] bg-[#64ffda] align-middle ml-[1px] translate-y-[-1px]" />
+      )}
+    </span>
+  )
+}
 
 function GithubIcon() {
   return (
@@ -102,8 +136,8 @@ export function Navbar() {
         <nav className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Logo — scrolls to top/hero */}
-          <a href="#hero" className="font-mono text-[#64ffda] text-sm font-medium hover:opacity-80 transition-opacity">
-            S.
+          <a href="#hero" className="hover:opacity-80 transition-opacity">
+            <LogoType />
           </a>
 
           {/* Desktop nav */}
