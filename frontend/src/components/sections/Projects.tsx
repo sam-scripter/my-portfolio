@@ -202,7 +202,7 @@ function ProjectCard({ project, featured = false }: {
       {/* Case study link */}
       <Link
         href={'/projects/' + project.slug}
-        className="mt-4 font-mono text-xs text-[#64ffda] opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1"
+        className="mt-4 font-mono text-xs text-[#64ffda] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity inline-flex items-center gap-1"
       >
         View case study
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
