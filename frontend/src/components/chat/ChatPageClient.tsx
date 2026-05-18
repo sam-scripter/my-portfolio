@@ -67,11 +67,16 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
 
   const handleModeSwitch = (newMode: 'visitor' | 'recruiter') => {
     switchMode(newMode)
-    if (newMode === 'visitor') {
-      setJdSubmitted(false)
-      setJdInput('')
-    }
   }
+
+  const handleClearAll = () => {
+    clearMessages()
+    setJdSubmitted(false)
+    setJdInput('')
+  }
+
+  // Only show messages that belong to the current mode
+  const filteredMessages = messages.filter(m => !m.mode || m.mode === mode)
 
   return (
     // Full viewport height, no overflow — everything contained
@@ -90,10 +95,15 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
         }}
       >
         <Link href="/" className="font-mono text-sm font-semibold" style={{ color: '#64ffda' }}>
-          S.
+          shadivah
         </Link>
         <div className="flex items-center gap-6">
-          {[{ label: 'Home', href: '/' }, { label: 'Projects', href: '/#work' }, { label: 'Experience', href: '/#experience' }].map(l => (
+          {[
+            { label: '01. About', href: '/#about' },
+            { label: '02. Projects', href: '/#work' },
+            { label: '03. Experience', href: '/#experience' },
+            { label: '04. Contact', href: '/#contact' },
+          ].map(l => (
             <Link key={l.label} href={l.href}
               className="font-mono text-xs hidden md:block transition-colors"
               style={{ color: '#8892b0' }}
@@ -103,10 +113,16 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
               {l.label}
             </Link>
           ))}
-          <span className="font-mono text-xs px-3 py-1 rounded border"
-            style={{ color: '#64ffda', borderColor: 'rgba(100,255,218,0.3)' }}>
-            AI Assistant
-          </span>
+          <a
+            href="/resume.pdf"
+            download="Samuel_Shadiva_Resume.pdf"
+            className="font-mono text-xs px-3 py-1.5 rounded border transition-all"
+            style={{ color: '#64ffda', borderColor: 'rgba(100,255,218,0.3)', background: 'transparent' }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(100,255,218,0.08)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+          >
+            Resume
+          </a>
         </div>
       </header>
 
@@ -223,6 +239,39 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
               </div>
             )}
 
+            {/* Recruiter — analysing */}
+            {mode === 'recruiter' && jdSubmitted && analyzingFit && (
+              <div className="flex items-start gap-3">
+                <AIAvatar />
+                <div
+                  className="flex-1 rounded-2xl rounded-tl-sm px-5 py-4 border"
+                  style={{ background: '#0a192f', borderColor: 'rgba(255,255,255,0.08)' }}
+                >
+                  <p className="text-sm font-semibold mb-1" style={{ color: '#ccd6f6' }}>
+                    Running fit analysis
+                  </p>
+                  <p className="text-xs mb-3" style={{ color: '#8892b0' }}>
+                    Cross-referencing Samuel&apos;s experience against your requirements...
+                  </p>
+                  <div className="space-y-2">
+                    {[
+                      'Parsing job requirements',
+                      'Matching skills & experience',
+                      'Generating fit report',
+                    ].map((step, i) => (
+                      <div key={step} className="flex items-center gap-2">
+                        <span
+                          className="w-1.5 h-1.5 rounded-full animate-bounce flex-shrink-0"
+                          style={{ background: '#64ffda', animationDelay: `${i * 150}ms` }}
+                        />
+                        <span className="font-mono text-xs" style={{ color: '#4a5568' }}>{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Fit report */}
             {mode === 'recruiter' && jdSubmitted && fitReport && (
               <div>
@@ -240,8 +289,8 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
             )}
 
             {/* Initial greeting + prompt starters */}
-            {messages.length === 0 && !rateLimitHit &&
-             !(mode === 'recruiter' && !jdSubmitted) && (
+            {filteredMessages.length === 0 && !rateLimitHit &&
+             !(mode === 'recruiter' && (!jdSubmitted || analyzingFit)) && (
               <div className="space-y-5">
                 <div className="flex items-start gap-3">
                   <AIAvatar />
@@ -284,7 +333,7 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
             )}
 
             {/* Conversation messages */}
-            {messages.map((msg, i) => (
+            {filteredMessages.map((msg, i) => (
               <div key={i}>
                 {msg.role === 'user' ? (
                   <div className="flex justify-end">
@@ -572,7 +621,7 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
           {/* Clear chat — bottom */}
           <div className="p-5 mt-auto">
             <button
-              onClick={clearMessages}
+              onClick={handleClearAll}
               className="w-full font-mono text-xs py-2 rounded border text-center transition-all"
               style={{ color: '#4a5568', borderColor: 'rgba(255,255,255,0.06)' }}
               onMouseEnter={e => {

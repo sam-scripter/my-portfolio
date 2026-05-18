@@ -36,6 +36,7 @@ export function useChat() {
       role: 'user',
       content: content.trim(),
       timestamp: new Date(),
+      mode,
     }
 
     // Create an empty AI message that will be filled as tokens stream in
@@ -48,6 +49,7 @@ export function useChat() {
       content: '',
       timestamp: new Date(),
       isStreaming: true,
+      mode,
     }
 
     setMessages(prev => [...prev, userMessage, aiMessage])
@@ -177,18 +179,18 @@ export function useChat() {
       const report = await analyzeFit(jobDescription)
       setFitReport(report)
     } catch {
-      // Show error in chat
       const errorMsg: ChatMessage = {
         id: uid(),
         role: 'assistant',
         content: 'Fit analysis failed. Please try again.',
         timestamp: new Date(),
+        mode,
       }
       setMessages(prev => [...prev, errorMsg])
     } finally {
       setAnalyzingFit(false)
     }
-  }, [])
+  }, [mode])
 
   const clearMessages = useCallback(() => {
     setMessages([])
@@ -198,8 +200,7 @@ export function useChat() {
 
   const switchMode = useCallback((newMode: ChatMode) => {
     setMode(newMode)
-    setFitReport(null)
-    // Don't clear messages — context carries over
+    // fitReport and messages persist — each mode keeps its own history
   }, [])
 
   return {

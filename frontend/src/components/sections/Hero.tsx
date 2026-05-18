@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, type FormEvent } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { Sparkles, ArrowUp, ArrowDown, RotateCcw } from 'lucide-react'
+import { Sparkles, ArrowUp, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { AvailabilityStatus } from '@/types'
 
@@ -29,7 +29,6 @@ export function Hero({ availability: _ }: HeroProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [input, setInput] = useState('')
-  const [mode, setMode] = useState<'visitor' | 'recruiter'>('visitor')
   const [remainingMessages, setRemainingMessages] = useState<number | null>(null)
   const [rateLimitCode, setRateLimitCode] = useState<string | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -60,7 +59,7 @@ export function Hero({ availability: _ }: HeroProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: content.trim(),
-          mode,
+          mode: 'visitor',
           session_history: history,
           session_id: sessionId.current,
         }),
@@ -137,7 +136,6 @@ export function Hero({ availability: _ }: HeroProps) {
 
   const reset = () => {
     setMessages([])
-    setMode('visitor')
     setInput('')
     setRemainingMessages(null)
     setRateLimitCode(null)
@@ -196,17 +194,12 @@ export function Hero({ availability: _ }: HeroProps) {
                 <span className="font-medium text-[#ccd6f6]">Samuel&apos;s AI</span>
                 <span>· grounded in his profile</span>
               </div>
-              <button
-                onClick={() => setMode(m => m === 'visitor' ? 'recruiter' : 'visitor')}
-                className={cn(
-                  "font-mono text-xs px-2.5 py-1 rounded-full border transition-all",
-                  mode === 'recruiter'
-                    ? "border-[rgba(100,255,218,0.4)] text-[#64ffda] bg-[rgba(100,255,218,0.08)]"
-                    : "border-[rgba(255,255,255,0.1)] text-[#4a5568] hover:text-[#8892b0]"
-                )}
+              <a
+                href="/chat"
+                className="font-mono text-xs px-2.5 py-1 rounded-full border transition-all border-[rgba(255,255,255,0.12)] text-[#8892b0] hover:text-[#ccd6f6] hover:border-[rgba(100,255,218,0.25)]"
               >
-                {mode === 'recruiter' ? 'Recruiter mode' : 'Switch to recruiter'}
-              </button>
+                Open full chat ↗
+              </a>
             </div>
             <button
               onClick={reset}
@@ -300,23 +293,6 @@ export function Hero({ availability: _ }: HeroProps) {
           </div>
         )}
 
-        {/* CTAs */}
-        {!hasConversation && (
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#64ffda] text-[#020c1b] font-medium hover:opacity-90 transition-opacity"
-            >
-              See Projects <ArrowDown className="h-4 w-4" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[rgba(255,255,255,0.15)] text-[#8892b0] hover:border-[rgba(100,255,218,0.35)] hover:text-[#ccd6f6] transition-colors"
-            >
-              Get in touch
-            </a>
-          </div>
-        )}
       </div>
     </section>
   )

@@ -65,6 +65,7 @@ export interface ChatMessage {
   content: string
   timestamp: Date
   isStreaming?: boolean
+  mode?: ChatMode
 }
 
 export type ChatMode = 'visitor' | 'recruiter'
