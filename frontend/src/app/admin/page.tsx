@@ -37,7 +37,7 @@ export default function AdminPage() {
     if (ok) {
       setAuthed(true)
     } else {
-      setLoginError('Invalid secret. Check your ADMIN_SECRET in backend-node/.env')
+      setLoginError('Invalid secret')
     }
     setLoggingIn(false)
   }
