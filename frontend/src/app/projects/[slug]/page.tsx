@@ -5,12 +5,45 @@ import Link from 'next/link'
 import { ArrowLeft, Smartphone, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { getStatusConfig } from '@/lib/utils'
+import type { Metadata } from 'next'
 
 export const revalidate = 3600
 
 export async function generateStaticParams() {
   const projects = await getProjects().catch(() => [])
   return projects.map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const project = await getProject(slug).catch(() => null)
+  if (!project) return {}
+
+  const title = project.title
+  const description = project.short_description
+  const url = `https://shadivahlabs.com/projects/${slug}`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'article',
+      siteName: 'Samuel Shadiva',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: { canonical: url },
+  }
 }
 
 export default async function ProjectPage({

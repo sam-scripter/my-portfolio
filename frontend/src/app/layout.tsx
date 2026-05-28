@@ -18,17 +18,50 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Samuel Shadiva — Full Stack & AI Engineer",
+  metadataBase: new URL("https://shadivahlabs.com"),
+  title: {
+    default: "Samuel Shadiva — Full Stack & AI Engineer",
+    template: "%s | Samuel Shadiva",
+  },
   description:
     "Flutter, Python, and AI engineer based in Nairobi, Kenya. " +
     "Building mobile apps, autonomous AI agents, and scalable backend systems.",
+  keywords: [
+    "Samuel Shadiva",
+    "Flutter developer",
+    "Python developer",
+    "AI engineer",
+    "full stack engineer",
+    "mobile app developer",
+    "Nairobi",
+    "Kenya",
+    "software engineer",
+    "autonomous AI agents",
+  ],
+  authors: [{ name: "Samuel Shadiva", url: "https://shadivahlabs.com" }],
+  creator: "Samuel Shadiva",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   openGraph: {
     title: "Samuel Shadiva — Full Stack & AI Engineer",
-    description: "Flutter, Python, and AI engineer based in Nairobi, Kenya.",
+    description:
+      "Flutter, Python, and AI engineer based in Nairobi, Kenya. " +
+      "Building mobile apps, autonomous AI agents, and scalable backend systems.",
     url: "https://shadivahlabs.com",
     siteName: "Samuel Shadiva",
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Samuel Shadiva — Full Stack & AI Engineer",
+    description:
+      "Flutter, Python, and AI engineer based in Nairobi, Kenya. " +
+      "Building mobile apps, autonomous AI agents, and scalable backend systems.",
+    creator: "@samuelshadiva",
   },
 }
 
