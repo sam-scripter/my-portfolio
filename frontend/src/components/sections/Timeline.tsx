@@ -5,14 +5,15 @@ import { cn } from '@/lib/utils'
 
 const ROLES = [
   {
-    role: 'ICT Platform Developer',
+    role: 'Software Engineer',
     org: 'Kenya School of Government',
     period: 'Current',
     current: true,
     bullets: [
-      'Full ICT asset management and service desk platform built with Node.js/Express.',
-      'Docker deployment on Oracle Cloud VPS with Nginx and SSL.',
-      'Real-time WebSocket notifications with Socket.io.',
+      'Building internal digital platforms for KSG\'s ICT department — asset management, service desk, and a digital recruitment system replacing a fully manual spreadsheet-based process.',
+      'Service desk includes SLA tracking, escalation workflows, role-based access control, and real-time Socket.io WebSocket notifications.',
+      'Recruitment platform: candidate portal with automated document completeness checks, AI-assisted screening using GPT-4o, and a client visibility dashboard.',
+      'Deployed on Oracle Cloud VPS with Docker and Nginx — currently serving KSG staff.',
     ],
   },
   {
@@ -21,9 +22,9 @@ const ROLES = [
     period: 'Sep 2025 · Feb 2026',
     current: false,
     bullets: [
-      'Designed and delivered intensive training in Mobile Development (Kotlin) and Applied AI.',
-      'Mentored developers through hands-on workshops on integrating LLM endpoints into mobile applications.',
-      'Strong technical communication: breaking complex ML concepts into actionable lessons.',
+      'Designed and delivered intensive workshops on Flutter mobile development and applied AI — integrating LLM endpoints into mobile applications.',
+      'Mentored developers through hands-on sessions on breaking down complex ML concepts into actionable implementation steps.',
+      'Strong technical communication: making advanced software engineering topics accessible to developers at different skill levels.',
     ],
   },
   {
@@ -32,20 +33,20 @@ const ROLES = [
     period: 'Jan 2025 – Nov 2025',
     current: false,
     bullets: [
-      'Architected a comprehensive cross-platform vendor management system using Flutter and Django with real-time inventory tracking.',
-      'Developed a custom Computer Vision Measurement API to extract body metrics from 2D photos for a virtual fashion system.',
-      'Led R&D on 3D body modeling, prototyping SMPLX integration to create rotatable 3D avatars for virtual outfit fitting.',
+      'Architected a cross-platform vendor management system using Flutter and Django with real-time inventory tracking for local vendors.',
+      'Built a custom Computer Vision Measurement API using OpenPose to extract body measurements from 2D photos — replacing manual tape measurement for a virtual fashion system.',
+      'Led R&D on SMPLX 3D body mesh generation for virtual outfit fitting.',
     ],
   },
   {
-    role: 'Backend Developer',
+    role: 'Software Engineer (Intern)',
     org: 'Uasin Gishu County Government',
     period: 'May 2023 – Aug 2023',
     current: false,
     bullets: [
-      'Spearheaded the Fuel and Repair Order Management System, replacing a manual paper requisition process.',
-      'Implemented Google Maps API to calculate precise distances for fuel quotas, directly mitigating fuel theft.',
-      'Managed the PostgreSQL schema handling complex departmental relations.',
+      'Built Integrated Vehicle Management System replacing a paper-based fuel and repair requisition process across the county fleet.',
+      'Integrated Google Maps API for route-based fuel quota calculation — directly mitigating fuel theft across county vehicles.',
+      'Digitised the full approval chain from driver request through fleet manager sign-off.',
     ],
   },
 ]
@@ -66,10 +67,10 @@ const EDUCATION = [
 ]
 
 const SKILLS: Record<string, string[]> = {
-  'Mobile': ['Flutter', 'Dart', 'Kotlin', 'Android SDK', 'Firebase', 'Provider/Bloc/MVVM'],
-  'AI & Automation': ['Autonomous Agents', 'LLM Integration', 'Prompt Engineering', 'Token Optimization', 'Serper.dev', 'TheirStack'],
-  'Backend & DB': ['Python', 'Django', 'DRF', 'PostgreSQL', 'Node.js', 'Express', 'SQLite/Drift', 'Hive'],
-  'Tools': ['REST APIs', 'Git', 'Docker', 'Google Maps API', 'Computer Vision API', 'CI/CD'],
+  'Mobile': ['Flutter', 'Dart', 'Android SDK', 'Firebase', 'Riverpod', 'Bloc', 'MVVM', 'Hive', 'Drift'],
+  'AI & Automation': ['LLM Integration', 'RAG', 'pgvector', 'Autonomous Agents', 'Prompt Engineering', 'Token Optimization', 'OpenAI API', 'Gemini AI'],
+  'Backend & DB': ['Python', 'Django', 'DRF', 'FastAPI', 'Node.js', 'Express', 'PostgreSQL', 'Redis', 'SQLite'],
+  'Frontend & Tools': ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Docker', 'Nginx', 'Git', 'CI/CD', 'Socket.io'],
 }
 
 export function Timeline() {
