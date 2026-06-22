@@ -134,12 +134,21 @@ function ProjectCard({ project, featured = false }: {
     <div className={[
       'group relative flex flex-col rounded-xl border transition-all duration-300',
       'bg-[#0a192f] border-[rgba(255,255,255,0.08)]',
-      'hover:border-[rgba(100,255,218,0.25)] hover:-translate-y-1',
+      'hover:border-[rgba(100,255,218,0.35)] hover:-translate-y-1.5',
+      'hover:bg-[#0d2240] hover:shadow-[0_12px_36px_rgba(100,255,218,0.08)]',
       featured ? 'border-l-2 border-l-[rgba(100,255,218,0.4)] p-6' : 'p-5',
     ].join(' ')}>
 
+      {/* Desktop-only full-card link overlay — sits behind all content */}
+      <Link
+        href={'/projects/' + project.slug}
+        className="hidden md:block absolute inset-0 rounded-xl z-0"
+        tabIndex={-1}
+        aria-hidden="true"
+      />
+
       {/* Top row */}
-      <div className="flex items-start justify-between gap-3 mb-3">
+      <div className="relative z-10 flex items-start justify-between gap-3 mb-3">
         {/* Folder icon */}
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(100,255,218,0.6)" strokeWidth="1.5" strokeLinecap="round">
           <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
@@ -169,7 +178,7 @@ function ProjectCard({ project, featured = false }: {
       </div>
 
       {/* Title + status */}
-      <div className="flex items-center gap-2 mb-2">
+      <div className="relative z-10 flex items-center gap-2 mb-2">
         <Link
           href={'/projects/' + project.slug}
           className="font-semibold text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
@@ -181,12 +190,12 @@ function ProjectCard({ project, featured = false }: {
       </div>
 
       {/* Description */}
-      <p className="text-[#8892b0] text-sm leading-relaxed mb-5 flex-1">
+      <p className="relative z-10 text-[#8892b0] text-sm leading-relaxed mb-5 flex-1">
         {project.short_description}
       </p>
 
       {/* Tech stack */}
-      <div className="flex flex-wrap gap-2 mt-auto">
+      <div className="relative z-10 flex flex-wrap gap-2 mt-auto">
         {project.tech_stack.slice(0, maxTags).map(tech => (
           <span key={tech} className="font-mono text-xs text-[#8892b0]">
             {tech}
@@ -202,10 +211,13 @@ function ProjectCard({ project, featured = false }: {
       {/* Case study link */}
       <Link
         href={'/projects/' + project.slug}
-        className="mt-4 font-mono text-xs text-[#64ffda] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity inline-flex items-center gap-1"
+        className="relative z-10 mt-4 font-mono text-xs text-[#64ffda] max-md:opacity-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1"
       >
         View case study
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+          className="transition-transform duration-200 group-hover:translate-x-0.5"
+        >
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </Link>
