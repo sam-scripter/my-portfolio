@@ -178,7 +178,7 @@ export function Hero({ availability: _ }: HeroProps) {
           </p>
           <div className="flex items-center justify-center gap-2 text-sm text-[#8892b0]">
             <Sparkles className="h-4 w-4 text-[#64ffda] shrink-0" />
-            <span>Ask my AI anything — it knows my full profile.</span>
+            <span>Ask my AI anything, it knows my full profile.</span>
           </div>
         </div>
 

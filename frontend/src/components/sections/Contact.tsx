@@ -12,7 +12,7 @@ export function Contact() {
         <p className="mt-6 text-lg text-[#8892b0] leading-relaxed">
           I&apos;m currently open to full-time roles, freelance projects, and AI
           consulting. Whether you have something in mind or just want to
-          connect — my inbox is always open.
+          connect, my inbox is always open.
         </p>
 
         <a

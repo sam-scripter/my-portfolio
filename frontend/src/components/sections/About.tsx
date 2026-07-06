@@ -34,7 +34,7 @@ export function About() {
 
             <div className="space-y-5 text-lg text-[#8892b0] leading-relaxed">
               <p>
-                I&apos;m Samuel — a Full Stack Software &amp; AI Engineer based in Nairobi,
+                I&apos;m Samuel, a Full Stack Software &amp; AI Engineer based in Nairobi,
                 Kenya. I build the things I wish existed: mobile apps that respect
                 your time, backends that don&apos;t fall over, and AI agents that
                 actually finish the job instead of just suggesting it.
@@ -53,7 +53,7 @@ export function About() {
               <p>
                 What gets me excited: clean architecture, token-optimized AI, and
                 watching a real workflow get fully automated end to end. I also
-                teach — I lead workshops on integrating LLMs into mobile apps.
+                teach, I lead workshops on integrating LLMs into mobile apps.
               </p>
             </div>
           </div>
