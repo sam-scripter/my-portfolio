@@ -10,10 +10,10 @@ const ROLES = [
     period: 'Current',
     current: true,
     bullets: [
-      'Building internal digital platforms for KSG\'s ICT department — asset management, service desk, and a digital recruitment system replacing a fully manual spreadsheet-based process.',
+      'Building internal digital platforms for KSG\'s ICT department: asset management, service desk, and a digital recruitment system replacing a fully manual spreadsheet-based process.',
       'Service desk includes SLA tracking, escalation workflows, role-based access control, and real-time Socket.io WebSocket notifications.',
       'Recruitment platform: candidate portal with automated document completeness checks, AI-assisted screening using GPT-4o, and a client visibility dashboard.',
-      'Deployed on Oracle Cloud VPS with Docker and Nginx — currently serving KSG staff.',
+      'Deployed on Oracle Cloud VPS with Docker and Nginx, currently serving KSG staff.',
     ],
   },
   {
@@ -22,7 +22,7 @@ const ROLES = [
     period: 'Sep 2025 · Feb 2026',
     current: false,
     bullets: [
-      'Designed and delivered intensive workshops on Flutter mobile development and applied AI — integrating LLM endpoints into mobile applications.',
+      'Designed and delivered intensive workshops on Flutter mobile development and applied AI, integrating LLM endpoints into mobile applications.',
       'Mentored developers through hands-on sessions on breaking down complex ML concepts into actionable implementation steps.',
       'Strong technical communication: making advanced software engineering topics accessible to developers at different skill levels.',
     ],
@@ -34,7 +34,7 @@ const ROLES = [
     current: false,
     bullets: [
       'Architected a cross-platform vendor management system using Flutter and Django with real-time inventory tracking for local vendors.',
-      'Built a custom Computer Vision Measurement API using OpenPose to extract body measurements from 2D photos — replacing manual tape measurement for a virtual fashion system.',
+      'Built a custom Computer Vision Measurement API using OpenPose to extract body measurements from 2D photos, replacing manual tape measurement for a virtual fashion system.',
       'Led R&D on SMPLX 3D body mesh generation for virtual outfit fitting.',
     ],
   },
@@ -45,7 +45,7 @@ const ROLES = [
     current: false,
     bullets: [
       'Built Integrated Vehicle Management System replacing a paper-based fuel and repair requisition process across the county fleet.',
-      'Integrated Google Maps API for route-based fuel quota calculation — directly mitigating fuel theft across county vehicles.',
+      'Integrated Google Maps API for route-based fuel quota calculation, directly mitigating fuel theft across county vehicles.',
       'Digitised the full approval chain from driver request through fleet manager sign-off.',
     ],
   },

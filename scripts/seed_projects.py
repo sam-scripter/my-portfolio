@@ -51,7 +51,7 @@ PROJECTS = [
             "An autonomous AI job search agent that discovers job postings via RSS, "
             "scores each one against my professional profile using GPT-4o-mini, "
             "drafts tailored applications for high matches, and runs 3x daily on a "
-            "schedule — fully without human intervention."
+            "schedule, fully without human intervention."
         ),
         "case_study": (Path(__file__).parent.parent / "knowledge/projects/atlas.md").read_text(encoding="utf-8"),
         "tech_stack": ["Python", "OpenAI", "PostgreSQL", "RSS", "SMTP", "Oracle VPS", "Cron"],
@@ -67,7 +67,7 @@ PROJECTS = [
         "slug": "number-your-days",
         "short_description": (
             "An intentional journaling app for Android using a tiered AI analysis "
-            "system — daily insights with Gemini Flash, monthly and yearly synthesis "
+            "system: daily insights with Gemini Flash, monthly and yearly synthesis "
             "with Gemini Pro. Uses a summarization chaining strategy that reduces "
             "token usage by ~98% vs naive approaches."
         ),
@@ -84,7 +84,7 @@ PROJECTS = [
         "title": "KSG ICT Platform",
         "slug": "ksg-ict-platform",
         "short_description": (
-            "A full internal ICT management system for Kenya School of Government — "
+            "A full internal ICT management system for Kenya School of Government, "
             "covering asset lifecycle management (procurement to retirement) and a "
             "service desk with SLA tracking, real-time WebSocket notifications, and "
             "role-based access. Deployed on Oracle Cloud VPS with Docker."
@@ -99,7 +99,7 @@ PROJECTS = [
         "display_order": 4,
     },
     {
-        "title": "IVY Community — Wardrobe App",
+        "title": "IVY Community: Wardrobe App",
         "slug": "ivy-wardrobe",
         "short_description": (
             "A fashion tech platform with a multi-role Flutter app (store owners, "
@@ -122,7 +122,7 @@ PROJECTS = [
         "short_description": (
             "A Flutter + Django system replacing a paper-based fuel and repair "
             "requisition process for Uasin Gishu County Government. Google Maps API "
-            "calculates fuel quotas from actual route distances — directly mitigating "
+            "calculates fuel quotas from actual route distances, directly mitigating "
             "fuel theft. Built during undergraduate final year."
         ),
         "case_study": (Path(__file__).parent.parent / "knowledge/projects/uasin_gishu.md").read_text(encoding="utf-8"),
@@ -140,7 +140,7 @@ PROJECTS = [
         "short_description": (
             "An Android AI assistant that reads WhatsApp conversations via Android "
             "Accessibility Service and suggests AI-generated responses in a floating "
-            "overlay window — built with a Flutter UI layer over a Kotlin backend "
+            "overlay window, built with a Flutter UI layer over a Kotlin backend "
             "using platform channels."
         ),
         "case_study": (Path(__file__).parent.parent / "knowledge/projects/miseflow.md").read_text(encoding="utf-8"),

@@ -3,9 +3,9 @@ import { getProjects, getSkills } from '@/lib/api'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Samuel's AI Assistant — Ask me anything",
+  title: "Samuel's AI Assistant: Ask me anything",
   description:
-    "Talk to Samuel Shadiva's AI assistant. Ask about his skills, projects, and experience — or paste a job description to get a fit analysis.",
+    "Talk to Samuel Shadiva's AI assistant. Ask about his skills, projects, and experience, or paste a job description to get a fit analysis.",
 }
 
 export const revalidate = 3600

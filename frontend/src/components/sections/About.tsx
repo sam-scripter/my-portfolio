@@ -4,7 +4,7 @@ const HIGHLIGHTS = [
   {
     stat: '2',
     title: 'Apps on Google Play',
-    body: 'Stratum and Number Your Days — both shipped end-to-end.',
+    body: 'Stratum and Number Your Days, both shipped end-to-end.',
   },
   {
     stat: '3+',
@@ -45,9 +45,9 @@ export function About() {
                 <strong className="text-[#ccd6f6]">Python &amp; Django</strong> for backends,{' '}
                 <strong className="text-[#ccd6f6]">React &amp; Node.js</strong> for web, and{' '}
                 <strong className="text-[#ccd6f6]">LLMs + PostgreSQL</strong> for the autonomous
-                agent work. I&apos;ve shipped two apps to the Google Play Store —{' '}
+                agent work. I&apos;ve shipped two apps to the Google Play Store,{' '}
                 <em className="text-[#ccd6f6]">Stratum</em> and{' '}
-                <em className="text-[#ccd6f6]">Number Your Days</em> — and I&apos;m currently
+                <em className="text-[#ccd6f6]">Number Your Days</em>, and I&apos;m currently
                 pursuing an M.Sc. in Information Technology at Strathmore University.
               </p>
               <p>

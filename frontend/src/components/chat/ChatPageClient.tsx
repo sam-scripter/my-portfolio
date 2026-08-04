@@ -183,8 +183,8 @@ export function ChatPageClient({ projects, skills }: ChatPageClientProps) {
                 </p>
                 <p className="text-xs mb-3" style={{ color: '#8892b0' }}>
                   {rateLimitCode === 'SESSION_LIMIT'
-                    ? 'You\'ve used your 10 messages for this session. Your session resets in ~1 hour — or start a new browser tab for a fresh session. You have up to 20 messages total per day.'
-                    : 'You\'ve reached today\'s limit of 20 messages. Resets at midnight UTC — or reach Samuel directly.'}
+                    ? 'You\'ve used your 10 messages for this session. Your session resets in ~1 hour, or start a new browser tab for a fresh session. You have up to 20 messages total per day.'
+                    : 'You\'ve reached today\'s limit of 20 messages. Resets at midnight UTC, or reach Samuel directly.'}
                 </p>
                 <a href="mailto:shadivasam@gmail.com" className="font-mono text-xs" style={{ color: '#64ffda' }}>
                   shadivasam@gmail.com →

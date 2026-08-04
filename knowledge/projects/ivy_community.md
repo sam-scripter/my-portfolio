@@ -1,4 +1,4 @@
-# IVY Community — Fashion Tech Platform
+# IVY Community: Fashion Tech Platform
 
 ## Context
 IVY (Investment for Ventured Youths) is a Nairobi-based fashion tech startup building a centralized marketplace for online fashion retailers in Kenya, with a virtual try-on system powered by AI and computer vision. Samuel joined as a developer (January 2025 – November 2025), working on multiple technical streams including the vendor management system, the measurement API, and the 3D modeling R&D.
@@ -22,9 +22,9 @@ A multi-role Flutter application serving four user types:
 - **Admin**: Django admin panel used to manage store verification, data entry, and content moderation
 
 ### Why Django Over Firebase
-The original architecture used Firebase for everything. When the 3D modeling requirement was confirmed, a server-side Python environment was needed to run OpenPose (computer vision) and SMPLX (3D mesh generation). At that point, migrating the business logic and auth to Django made sense — it gave a unified Python backend for both business logic and AI/CV processing.
+The original architecture used Firebase for everything. When the 3D modeling requirement was confirmed, a server-side Python environment was needed to run OpenPose (computer vision) and SMPLX (3D mesh generation). At that point, migrating the business logic and auth to Django made sense: it gave a unified Python backend for both business logic and AI/CV processing.
 
-## Measurement API — Computer Vision Pipeline
+## Measurement API: Computer Vision Pipeline
 
 ### The Problem
 To generate a virtual try-on, you need accurate body measurements (shoulder width, waist circumference, height, hip width, etc.). Users cannot be trusted to self-report these accurately. The solution: extract measurements from photos.
@@ -32,27 +32,27 @@ To generate a virtual try-on, you need accurate body measurements (shoulder widt
 ### The Pipeline
 1. **User uploads**: front-facing photo and side-facing photo via the Flutter app
 2. **API request**: Django backend receives the images
-3. **OpenPose processing**: OpenPose detects body keypoints from each photo — these are pixel coordinates for anatomical landmarks: left/right shoulder, left/right hip, left/right knee, neck, nose, left/right eye, etc. Typically 25 keypoints per image.
-4. **Measurement calculation**: From keypoint pixel coordinates and a known reference (e.g. shoulder width in pixels vs. average shoulder width in cm), body measurements are derived mathematically — distance between keypoints, scaled to real-world dimensions
+3. **OpenPose processing**: OpenPose detects body keypoints from each photo. These are pixel coordinates for anatomical landmarks: left/right shoulder, left/right hip, left/right knee, neck, nose, left/right eye, etc. Typically 25 keypoints per image.
+4. **Measurement calculation**: From keypoint pixel coordinates and a known reference (e.g. shoulder width in pixels vs. average shoulder width in cm), body measurements are derived mathematically: distance between keypoints, scaled to real-world dimensions
 5. **Output**: Structured body measurements returned to the Flutter app as JSON
 
 ### Tools
 - OpenPose (CMU's open-source pose estimation library)
 - Pillow (Python image processing)
-- Rembg (background removal before pose estimation — improves keypoint accuracy)
+- Rembg (background removal before pose estimation, improves keypoint accuracy)
 - OpenCV (image resizing, preprocessing before texture mapping)
 
-## 3D Model R&D — SMPLX Integration
+## 3D Model R&D: SMPLX Integration
 
 ### Goal
 Generate a 3D mesh of the user's body from the OpenPose keypoints, then render clothing on the 3D mesh for virtual try-on.
 
 ### What Was Tried
-**Approach 1 (OpenPose keypoints → SMPLX model):** Feed the detected keypoints directly into SMPLX to generate a personalised 3D body mesh. This failed because SMPLX expects keypoints in a specific coordinate format and the mapping from OpenPose's output to SMPLX's input parameters produced distorted models — the body proportions were wrong.
+**Approach 1 (OpenPose keypoints → SMPLX model):** Feed the detected keypoints directly into SMPLX to generate a personalised 3D body mesh. This failed because SMPLX expects keypoints in a specific coordinate format and the mapping from OpenPose's output to SMPLX's input parameters produced distorted models: the body proportions were wrong.
 
-**Approach 2 (Predefined SMPLX meshes + texture):** Use pre-defined SMPLX meshes as a baseline (average body shape) and apply a texture map derived from the user's photo onto the mesh. This was more stable but texture mapping produced mismatches — the user's image texture didn't align with the mesh's UV map because of pose differences between the photo and the predefined mesh.
+**Approach 2 (Predefined SMPLX meshes + texture):** Use pre-defined SMPLX meshes as a baseline (average body shape) and apply a texture map derived from the user's photo onto the mesh. This was more stable but texture mapping produced mismatches: the user's image texture didn't align with the mesh's UV map because of pose differences between the photo and the predefined mesh.
 
-**Outcome:** The 3D modeling feature was identified as requiring significantly more R&D time than the project timeline allowed. The decision was made to deploy the app with existing features (marketplace, inventory management, measurement API) while continuing 3D research for a future version. This was a pragmatic call — ship what works rather than delay everything for a complex experimental feature.
+**Outcome:** The 3D modeling feature was identified as requiring significantly more R&D time than the project timeline allowed. The decision was made to deploy the app with existing features (marketplace, inventory management, measurement API) while continuing 3D research for a future version. This was a pragmatic call: ship what works rather than delay everything for a complex experimental feature.
 
 ### Lessons
 Working on the frontier of a technology with limited documentation is fundamentally different from building with established tools. OpenPose + SMPLX integration had almost no existing tutorials or examples for the exact use case. The work required reading research papers, reverse-engineering example code, and a lot of experimentation. The lesson: R&D timelines must be estimated with significantly more buffer than feature development timelines, and exit criteria ("what does good enough look like?") must be defined before starting.

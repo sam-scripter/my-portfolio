@@ -73,8 +73,8 @@ export function Hero({ availability: _ }: HeroProps) {
         const code = body.code || 'DAILY_LIMIT'
         setRateLimitCode(code)
         const limitMsg = code === 'SESSION_LIMIT'
-          ? "You've used your 10 messages for this session. Your session resets in ~1 hour — or [open the full chat](/chat) for a fresh session."
-          : "You've reached today's limit of 20 messages. Resets at midnight UTC — or reach Samuel at [shadivasam@gmail.com](mailto:shadivasam@gmail.com)."
+          ? "You've used your 10 messages for this session. Your session resets in ~1 hour, or [open the full chat](/chat) for a fresh session."
+          : "You've reached today's limit of 20 messages. Resets at midnight UTC, or reach Samuel at [shadivasam@gmail.com](mailto:shadivasam@gmail.com)."
         setMessages(prev =>
           prev.map((m, i) =>
             i === prev.length - 1 ? { ...m, content: limitMsg, streaming: false } : m

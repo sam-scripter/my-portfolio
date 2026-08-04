@@ -1,4 +1,4 @@
-# Uasin Gishu County Government — Integrated Vehicle Management System (IVMS)
+# Uasin Gishu County Government: Integrated Vehicle Management System (IVMS)
 
 ## Context
 Contracted engagement with Uasin Gishu County Government, May 2023 – August 2023, during final year of undergraduate studies at CUEA. This was Samuel's first professional backend development engagement with a government client. The project was also submitted as his final year project for the BSc Computer Science degree (graded, supervised by Mr. Eliakim Akama).
@@ -14,14 +14,14 @@ The county government managed a fleet of vehicles across multiple departments. T
 6. Attendant dispenses fuel, records in a register
 
 **Problems with this process:**
-- No digital audit trail — paper forms could be lost, altered, or backdated
+- No digital audit trail: paper forms could be lost, altered, or backdated
 - Drivers could over-request fuel with no objective validation of the quantity needed
 - Fuel theft: drivers could claim fuel for routes they didn't travel, or attendants could dispense more than approved
 - Management had no real-time visibility into fuel consumption per vehicle
-- Repair orders followed the same broken process — mechanics had no formal job tracking
-- The entire approval chain was slow — a fuel request could take days to process
+- Repair orders followed the same broken process: mechanics had no formal job tracking
+- The entire approval chain was slow: a fuel request could take days to process
 
-## The Solution — Flutter + Django + PostgreSQL
+## The Solution: Flutter + Django + PostgreSQL
 
 ### User Roles
 The system replaced every paper form with a digital workflow across six roles:
@@ -38,12 +38,12 @@ The system replaced every paper form with a digital workflow across six roles:
 This is the key anti-theft feature. The flow:
 
 1. Driver opens a new fuel request
-2. Driver selects source location (current GPS location or custom map pin) and destination location (map pin) — they cannot type free text; they must select from the actual map, which validates the locations exist
+2. Driver selects source location (current GPS location or custom map pin) and destination location (map pin). They cannot type free text; they must select from the actual map, which validates the locations exist
 3. The two coordinates are passed to the Google Maps Distance Matrix API
 4. The API returns the road distance in kilometres between the two points
 5. The system retrieves the vehicle's fuel consumption rate (litres per 100km, stored in the vehicle record)
 6. Fuel quota is calculated: (distance_km / 100) × consumption_rate = litres_required
-7. This calculated quantity is pre-filled in the request — the driver cannot change it; the Transport Manager can edit if needed
+7. This calculated quantity is pre-filled in the request. The driver cannot change it; the Transport Manager can edit if needed
 
 **Impact**: A driver can no longer request 50 litres for a 10km trip. The system calculates that a 10km trip in a vehicle consuming 10L/100km requires exactly 1 litre. The calculated quantity is the ceiling of what can be approved.
 
