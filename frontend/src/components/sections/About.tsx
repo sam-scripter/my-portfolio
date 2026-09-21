@@ -12,7 +12,7 @@ const HIGHLIGHTS = [
     body: 'Atlas job-search agent, B2B sales agent, and more.',
   },
   {
-    stat: '4y',
+    stat: '3y',
     title: 'Building software',
     body: 'From county-government backends to virtual fitting rooms.',
   },
