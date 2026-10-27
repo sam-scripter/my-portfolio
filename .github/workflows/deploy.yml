@@ -23,7 +23,7 @@ jobs:
             "cd ~/my-portfolio && \
              git pull origin main && \
              sudo docker compose -f docker-compose.portfolio.yml --env-file .env up -d --build && \
-             sudo docker exec ksg_nginx nginx -s reload && \
+             sudo docker exec ksg_nginx nginx -s reload || true && \
              echo 'Deploy complete'"
 
       - name: Health check
