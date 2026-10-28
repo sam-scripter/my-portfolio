@@ -31,8 +31,10 @@ from app.models.schemas import IngestRequest
 router = APIRouter(prefix="/ingest", tags=["ingest"])
 client = OpenAI(api_key=settings.openai_api_key)
 
-# Path to the knowledge/ folder — two levels up from app/
-KNOWLEDGE_DIR = Path(__file__).parent.parent.parent.parent / "knowledge"
+# Where the knowledge/ markdown files are.
+# In Docker, KNOWLEDGE_DIR is set in docker-compose.portfolio.yml (the folder is mounted into the rag container).
+# Locally it falls back to the repo's own knowledge/ folder (four levels up from this file).
+KNOWLEDGE_DIR = Path(os.getenv("KNOWLEDGE_DIR", Path(__file__).resolve().parents[3] / "knowledge"))
 
 # Chunking config — must match scripts/ingest.py exactly
 # so re-ingestion produces consistent chunk sizes

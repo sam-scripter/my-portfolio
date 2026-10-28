@@ -1,0 +1,79 @@
+services:
+
+  nextjs:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://shadivahlabs.com
+    container_name: portfolio_nextjs
+    environment:
+      - NEXT_PUBLIC_API_URL=https://shadivahlabs.com
+    restart: unless-stopped
+    networks:
+      - internal                   # private: only this project's containers
+      - edge
+
+  api:
+    build:
+      context: ./backend-node
+      dockerfile: Dockerfile
+    container_name: portfolio_api
+    env_file:
+      - ./backend-node/.env.production
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - internal                   # private: only this project's containers
+      - edge
+
+  rag:
+    build:
+      context: ./backend-python
+      dockerfile: Dockerfile
+    container_name: portfolio_rag
+    env_file:
+      - ./backend-python/.env.production
+    volumes:
+      - ./knowledge:/home/ubuntu/my-portfolio/knowledge:ro
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - internal                   # private: only this project's containers
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: portfolio_db
+    environment:
+      - POSTGRES_DB=samuel_portfolio
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - portfolio_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - internal                   # private: only this project's containers
+
+  redis:
+    image: redis:7-alpine
+    container_name: portfolio_redis
+    command: redis-server --appendonly yes
+    volumes:
+      - portfolio_redisdata:/data
+    restart: unless-stopped
+    networks:
+      - internal                   # private: only this project's containers
+
+volumes:
+  portfolio_pgdata:
+  portfolio_redisdata:
+
+networks:
+  internal:                        # private network for this project only
+    driver: bridge
+  edge:
+    name: edge_portfolio
+    external: true
