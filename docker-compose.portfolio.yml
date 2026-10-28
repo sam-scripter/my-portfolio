@@ -34,6 +34,8 @@ services:
       context: ./backend-python
       dockerfile: Dockerfile
     container_name: portfolio_rag
+    environment:
+      KNOWLEDGE_DIR: /home/ubuntu/my-portfolio/knowledge
     env_file:
       - ./backend-python/.env.production
     volumes:
